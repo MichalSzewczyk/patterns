@@ -1,6 +1,6 @@
-package com.patterns.command.swing.impl;
+package com.patterns.command.impl;
 
-import com.patterns.command.swing.interfaces.Command;
+import com.patterns.command.interfaces.Command;
 
 import javax.swing.*;
 

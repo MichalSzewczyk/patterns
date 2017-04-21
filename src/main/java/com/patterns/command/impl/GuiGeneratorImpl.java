@@ -1,7 +1,7 @@
-package com.patterns.command.swing.impl;
+package com.patterns.command.impl;
 
-import com.patterns.command.swing.interfaces.GuiGenerator;
-import com.patterns.command.swing.interfaces.Invoker;
+import com.patterns.command.interfaces.GuiGenerator;
+import com.patterns.command.interfaces.Invoker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

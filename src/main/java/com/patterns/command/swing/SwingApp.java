@@ -1,7 +1,7 @@
-package com.patterns.command;
+package com.patterns.command.swing;
 
 
-import com.patterns.command.swing.interfaces.GuiGenerator;
+import com.patterns.command.interfaces.GuiGenerator;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**

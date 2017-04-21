@@ -1,6 +1,6 @@
-package com.patterns.command.swing.impl;
+package com.patterns.command.impl;
 
-import com.patterns.command.swing.interfaces.Invoker;
+import com.patterns.command.interfaces.Invoker;
 import com.patterns.command.swing.util.ActionLinkedList;
 import com.patterns.command.swing.util.ActionList;
 import org.springframework.stereotype.Service;
