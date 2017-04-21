@@ -1,5 +1,8 @@
 package com.patterns.command.impl;
 
+import com.patterns.command.impl.commands.KeyEventAddCommand;
+import com.patterns.command.impl.commands.KeyEventCommand;
+import com.patterns.command.impl.commands.KeyEventRemoveCommand;
 import com.patterns.command.interfaces.GuiGenerator;
 import com.patterns.command.interfaces.Invoker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +86,10 @@ public class GuiGeneratorImpl implements GuiGenerator {
 
             @Override
             public void keyReleased(KeyEvent e) {
-                invoker.storeCommand(new KeyEventCommand(textField, textField.getText(), before));
+                if (before.length() > textField.getText().length())
+                    invoker.storeCommand(new KeyEventRemoveCommand(textField, textField.getText(), before));
+                else
+                    invoker.storeCommand(new KeyEventAddCommand(textField, textField.getText(), before));
                 refreshButtons();
             }
         });

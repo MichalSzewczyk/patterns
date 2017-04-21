@@ -1,5 +1,6 @@
 package com.patterns.command.impl;
 
+import com.patterns.command.impl.commands.KeyEventCommand;
 import com.patterns.command.interfaces.Invoker;
 import com.patterns.command.swing.util.ActionLinkedList;
 import com.patterns.command.swing.util.ActionList;

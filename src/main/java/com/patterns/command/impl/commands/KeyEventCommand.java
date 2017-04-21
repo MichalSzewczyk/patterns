@@ -1,4 +1,4 @@
-package com.patterns.command.impl;
+package com.patterns.command.impl.commands;
 
 import com.patterns.command.interfaces.Command;
 
