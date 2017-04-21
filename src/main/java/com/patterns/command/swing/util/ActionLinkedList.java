@@ -9,12 +9,8 @@ public class ActionLinkedList<T> implements ActionList<T> {
     public void add(T value) {
         if (actual == null) {
             actual = new Node<>(value, null, null);
-        } else if (actual.next != null) {
-            Node<T> tmp = new Node<>(value, actual.next, actual);
-            actual.next = tmp;
-            actual = tmp;
         } else {
-            Node<T> tmp = new Node<>(value, null, actual);
+            Node<T> tmp = new Node<>(value, actual.next, actual);
             actual.next = tmp;
             actual = tmp;
         }
