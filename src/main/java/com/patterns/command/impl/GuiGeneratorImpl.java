@@ -1,8 +1,10 @@
 package com.patterns.command.impl;
 
+import com.patterns.command.decorator.CommandDecorator;
 import com.patterns.command.impl.commands.KeyEventAddCommand;
 import com.patterns.command.impl.commands.KeyEventCommand;
 import com.patterns.command.impl.commands.KeyEventRemoveCommand;
+import com.patterns.command.interfaces.Command;
 import com.patterns.command.interfaces.GuiGenerator;
 import com.patterns.command.interfaces.Invoker;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,23 +25,24 @@ public class GuiGeneratorImpl implements GuiGenerator {
     private JTextField textField;
     private JButton undoButton;
     private JButton redoButton;
-    private Invoker<KeyEventCommand> invoker;
+    private JLabel label;
+    private Invoker<Command> invoker;
 
     @Autowired
-    public GuiGeneratorImpl(Invoker<KeyEventCommand> invoker) {
+    public GuiGeneratorImpl(Invoker<Command> invoker) {
         this.invoker = invoker;
         invoker.storeCommand(new KeyEventCommand(textField, "", ""));
     }
 
     private void prepareMainFrame() {
         frame = new JFrame("Basic Text Editor");
-        frame.setLayout(new GridLayout(3, 1));
+        frame.setLayout(new GridLayout(4, 1));
         frame.setPreferredSize(new Dimension(400, 400));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
     private void prepareTextField() {
-        textField = new JTextField("");
+        textField = new JTextField("", SwingConstants.CENTER);
     }
 
     private void prepareButtons() {
@@ -53,23 +56,29 @@ public class GuiGeneratorImpl implements GuiGenerator {
         frame.getContentPane().add(textField);
         frame.getContentPane().add(undoButton);
         frame.getContentPane().add(redoButton);
+        frame.getContentPane().add(label);
         frame.pack();
         frame.setVisible(true);
     }
 
-    private void refreshButtons() {
+    private void refresh() {
         redoButton.setEnabled(invoker.canRedo());
         undoButton.setEnabled(invoker.canUndo());
+        label.setText(String.valueOf(CommandDecorator.getCounter()));
+    }
+
+    private void prepareLabel() {
+        this.label = new JLabel("", SwingConstants.CENTER);
     }
 
     private void setListeners() {
         undoButton.addActionListener((actionEvent) -> {
             invoker.undo();
-            refreshButtons();
+            refresh();
         });
         redoButton.addActionListener((actionEvent) -> {
             invoker.redo();
-            refreshButtons();
+            refresh();
         });
 
         textField.addKeyListener(new KeyListener() {
@@ -87,10 +96,10 @@ public class GuiGeneratorImpl implements GuiGenerator {
             @Override
             public void keyReleased(KeyEvent e) {
                 if (before.length() > textField.getText().length())
-                    invoker.storeCommand(new KeyEventRemoveCommand(textField, textField.getText(), before));
+                    invoker.storeCommand(new CommandDecorator(new KeyEventRemoveCommand(textField, textField.getText(), before)));
                 else
-                    invoker.storeCommand(new KeyEventAddCommand(textField, textField.getText(), before));
-                refreshButtons();
+                    invoker.storeCommand(new CommandDecorator(new KeyEventAddCommand(textField, textField.getText(), before)));
+                refresh();
             }
         });
     }
@@ -100,6 +109,7 @@ public class GuiGeneratorImpl implements GuiGenerator {
         prepareButtons();
         prepareMainFrame();
         prepareTextField();
+        prepareLabel();
         setListeners();
 
         combineElements();

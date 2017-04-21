@@ -11,6 +11,7 @@ public class CommandDecorator implements Command {
 
     public CommandDecorator(Command command) {
         this.command = command;
+        counter++;
     }
 
     @Override
