@@ -10,7 +10,6 @@ public class SmokeAlarm extends Alarm<SmokeDetector> {
 
     public SmokeAlarm(SmokeDetector observable) {
         super(observable);
-        this.observable.addObserver(this);
     }
 
     @Override

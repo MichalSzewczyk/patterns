@@ -10,10 +10,11 @@ public class CelsiusThermometer extends AbstractObservable implements Thermomete
 
     public void setTemperature(float temperature) {
         this.temperature = temperature;
+        this.notifyObservers();
     }
 
     @Override
     public float getTemperature() {
-        return 0;
+        return temperature;
     }
 }

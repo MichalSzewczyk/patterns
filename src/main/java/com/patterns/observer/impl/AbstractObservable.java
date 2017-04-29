@@ -20,4 +20,8 @@ public abstract class AbstractObservable implements Observable {
     public void addObserver(Observer observer) {
         this.observers.add(observer);
     }
+
+    protected void notifyObservers(){
+        observers.forEach(Observer::notifyStateChange);
+    }
 }
